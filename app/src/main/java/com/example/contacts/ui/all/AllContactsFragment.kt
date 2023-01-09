@@ -46,6 +46,12 @@ class AllContactsFragment: Fragment(R.layout.fragment_contacts_all) {
                 }
                 .show()
             }
+            
+            adapter.setOnFavoriteClickListener { contact, position ->
+                val newContact = contact.copy(isFav =  1 - contact.isFav)
+                contactDao.updateContact(newContact)
+                adapter.updateContact(position)
+            }
 
             adapter.setOnCallClickListener {
                 val intent = Intent(Intent.ACTION_DIAL)

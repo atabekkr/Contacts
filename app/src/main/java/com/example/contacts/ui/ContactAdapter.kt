@@ -17,6 +17,16 @@ class ContactAdapter: Adapter<ContactAdapter.ContactViewHolder>() {
                 tvName.text = contact.name
                 tvPhone.text = contact.phone
 
+                if (contact.isFav == 1) {
+                    ivFav.setImageResource(R.drawable.ic_star_filled)
+                } else {
+                    ivFav.setImageResource(R.drawable.ic_star_border)
+                }
+
+                ivFav.setOnClickListener {
+                    onFavoriteClick.invoke(contact, adapterPosition)
+                }
+
                 ivDelete.setOnClickListener {
                     onDeleteClick.invoke(contact, adapterPosition)
                 }
@@ -57,8 +67,20 @@ class ContactAdapter: Adapter<ContactAdapter.ContactViewHolder>() {
         this.onCallClick = onCallClick
     }
 
+    private var onFavoriteClick: (contact: Contact, position: Int) -> Unit = { _, _ ->}
+    fun setOnFavoriteClickListener(onFavoriteClick: (contact: Contact, position: Int) -> Unit) {
+        this.onFavoriteClick = onFavoriteClick
+    }
+
     fun removeAtPosition(position: Int) {
         contacts.removeAt(position)
         notifyItemRemoved(position)
+    }
+
+    fun updateContact(position: Int) {
+        val currentContact = contacts[position]
+        val newContact = currentContact.copy(isFav = 1 - currentContact.isFav)
+        contacts[position] = newContact
+        notifyItemChanged(position)
     }
 }
