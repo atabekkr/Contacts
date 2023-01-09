@@ -1,5 +1,6 @@
 package com.example.contacts.ui
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.viewmodel.viewModelFactory
@@ -21,11 +22,16 @@ class ContactAdapter: Adapter<ContactAdapter.ContactViewHolder>() {
                     contacts.removeAt(adapterPosition)
                     notifyItemRemoved(adapterPosition)
                 }
+
+                ivCall.setOnClickListener {
+                    onCallClick.invoke(contact)
+                }
             }
         }
     }
 
     var contacts = mutableListOf<Contact>()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -46,5 +52,10 @@ class ContactAdapter: Adapter<ContactAdapter.ContactViewHolder>() {
     private var onDeleteClick: (contact: Contact) -> Unit = {}
     fun setOnDeleteClickListener(onDeleteClick: (contact: Contact) -> Unit) {
         this.onDeleteClick = onDeleteClick
+    }
+
+    private var onCallClick: (contact: Contact) -> Unit = {}
+    fun setOnCallClickListener(onCallClick: (contact: Contact) -> Unit) {
+        this.onCallClick = onCallClick
     }
 }

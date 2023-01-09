@@ -1,5 +1,7 @@
 package com.example.contacts.ui.all
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -31,6 +33,12 @@ class AllContactsFragment: Fragment(R.layout.fragment_contacts_all) {
                 contactDao.deleteContact(contact)
                 Snackbar.make(fabAddContact, "Contact deleted successfully!", Snackbar.LENGTH_SHORT)
                     .show()
+            }
+
+            adapter.setOnCallClickListener {
+                val intent = Intent(Intent.ACTION_DIAL)
+                intent.data = Uri.parse("tel:${it.phone}")
+                startActivity(intent)
             }
 
             adapter.contacts = contactDao.getAllContacts().toMutableList()
