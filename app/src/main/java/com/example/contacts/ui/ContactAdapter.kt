@@ -17,6 +17,17 @@ class ContactAdapter: Adapter<ContactAdapter.ContactViewHolder>() {
                 tvName.text = contact.name
                 tvPhone.text = contact.phone
 
+                if (contact.image.isNotEmpty()) {
+                    val id = root.context.resources.getIdentifier(
+                        contact.image,
+                        "drawable",
+                        root.context.packageName
+                    )
+                    ivImage.setImageResource(id)
+                } else {
+                    ivImage.setImageResource(R.drawable.ic_no_accounts)
+                }
+
                 if (contact.isFav == 1) {
                     ivFav.setImageResource(R.drawable.ic_star_filled)
                 } else {
@@ -35,7 +46,7 @@ class ContactAdapter: Adapter<ContactAdapter.ContactViewHolder>() {
                     onCallClick.invoke(contact)
                 }
 
-                root.setOnClickListener {
+                cvContact.setOnClickListener {
                     onItemClick.invoke(contact, adapterPosition)
                 }
             }

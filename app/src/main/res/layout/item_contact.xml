@@ -5,11 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="4dp"
         app:cardElevation="2dp"
+        android:background="?selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:cardCornerRadius="16dp" >
 
@@ -18,13 +20,23 @@
             android:layout_height="wrap_content"
             >
 
+            <ImageView
+                android:id="@+id/iv_image"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_name"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Atabek Utebaev"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_image"
+
                 android:textSize="16sp"
                 android:layout_margin="16dp" />
 
@@ -45,6 +57,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                  android:src="@drawable/phone"
+                android:background="?selectableItemBackgroundBorderless"
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -56,6 +69,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                  android:src="@drawable/nfav"
+                android:background="?selectableItemBackgroundBorderless"
                 android:padding="8dp"
                 app:layout_constraintEnd_toStartOf="@id/iv_call"
                 app:layout_constraintTop_toTopOf="parent"
@@ -67,7 +81,8 @@
                 android:id="@+id/iv_delete"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                 android:src="@drawable/delete"
+                android:src="@drawable/delete"
+                android:background="?selectableItemBackgroundBorderless"
                 android:padding="8dp"
                 app:layout_constraintEnd_toStartOf="@id/iv_fav"
                 app:layout_constraintTop_toTopOf="parent"

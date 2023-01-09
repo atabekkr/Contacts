@@ -8,6 +8,7 @@ import com.example.contacts.R
 import com.example.contacts.data.Contact
 import com.example.contacts.data.ContactDatabase
 import com.example.contacts.databinding.DialogContactAddBinding
+import kotlin.random.Random
 
 class AddContactDialog: DialogFragment(R.layout.dialog_contact_add) {
     private lateinit var binding: DialogContactAddBinding
@@ -24,10 +25,13 @@ class AddContactDialog: DialogFragment(R.layout.dialog_contact_add) {
                 val phone = etPhone.text.toString()
 
                 if (name.isNotEmpty() && phone.isNotEmpty()) {
+                    val list =
+                        listOf("ic_person", "ic_person_pin", "ic_person_circle", "", "", "")
+                    val index = Random.nextInt(0, list.size)
                     val contact = Contact(
                         name = name,
                         phone = phone,
-                        image = "",
+                        image = list[index],
                         isFav = 0
                     )
                     dao.addContact(contact)
