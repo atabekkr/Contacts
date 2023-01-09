@@ -11,6 +11,7 @@ import com.example.contacts.data.ContactDao
 import com.example.contacts.data.ContactDatabase
 import com.example.contacts.databinding.FragmentContactsAllBinding
 import com.example.contacts.ui.ContactAdapter
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 
 class AllContactsFragment: Fragment(R.layout.fragment_contacts_all) {
@@ -29,10 +30,21 @@ class AllContactsFragment: Fragment(R.layout.fragment_contacts_all) {
         binding.apply {
             recyclerView.adapter = adapter
 
-            adapter.setOnDeleteClickListener {  contact ->  
-                contactDao.deleteContact(contact)
-                Snackbar.make(fabAddContact, "Contact deleted successfully!", Snackbar.LENGTH_SHORT)
-                    .show()
+            adapter.setOnDeleteClickListener {  contact, position ->
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Delete Contact")
+                .setMessage("${contact.name}-di oshirip tastayiqpa?")
+                .setPositiveButton("Yes") { dialog, _ ->
+                    contactDao.deleteContact(contact)
+                    adapter.removeAtPosition(position)
+                    Snackbar.make(fabAddContact, "Contact deleted successfully!", Snackbar.LENGTH_SHORT)
+                        .show()
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
             }
 
             adapter.setOnCallClickListener {

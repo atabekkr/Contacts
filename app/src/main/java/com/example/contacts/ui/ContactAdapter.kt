@@ -18,9 +18,7 @@ class ContactAdapter: Adapter<ContactAdapter.ContactViewHolder>() {
                 tvPhone.text = contact.phone
 
                 ivDelete.setOnClickListener {
-                    onDeleteClick.invoke(contact)
-                    contacts.removeAt(adapterPosition)
-                    notifyItemRemoved(adapterPosition)
+                    onDeleteClick.invoke(contact, adapterPosition)
                 }
 
                 ivCall.setOnClickListener {
@@ -49,13 +47,18 @@ class ContactAdapter: Adapter<ContactAdapter.ContactViewHolder>() {
         holder.bind(contacts[position])
     }
 
-    private var onDeleteClick: (contact: Contact) -> Unit = {}
-    fun setOnDeleteClickListener(onDeleteClick: (contact: Contact) -> Unit) {
+    private var onDeleteClick: (contact: Contact, position: Int) -> Unit = { _, _ ->}
+    fun setOnDeleteClickListener(onDeleteClick: (contact: Contact, position: Int) -> Unit) {
         this.onDeleteClick = onDeleteClick
     }
 
     private var onCallClick: (contact: Contact) -> Unit = {}
     fun setOnCallClickListener(onCallClick: (contact: Contact) -> Unit) {
         this.onCallClick = onCallClick
+    }
+
+    fun removeAtPosition(position: Int) {
+        contacts.removeAt(position)
+        notifyItemRemoved(position)
     }
 }
