@@ -23,14 +23,16 @@ class MainActivity : AppCompatActivity() {
             bnvMain.setOnItemSelectedListener {
                 when (it.itemId) {
                     R.id.item_all -> {
-                        supportFragmentManager.beginTransaction().add(
+                        supportFragmentManager.beginTransaction()
+                            .replace(
                             R.id.fragment_container, AllContactsFragment())
                             .commit()
                     }
                     R.id.item_favorite -> {
-                        supportFragmentManager.beginTransaction().add(
-                            R.id.fragment_container, FavoriteContactsFragment()
-                        ).commit()
+                        supportFragmentManager.beginTransaction()
+                            .replace(
+                            R.id.fragment_container, FavoriteContactsFragment())
+                            .commit()
                     }
                 }
                 true

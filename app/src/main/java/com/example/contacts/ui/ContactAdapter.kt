@@ -34,6 +34,10 @@ class ContactAdapter: Adapter<ContactAdapter.ContactViewHolder>() {
                 ivCall.setOnClickListener {
                     onCallClick.invoke(contact)
                 }
+
+                root.setOnClickListener {
+                    onItemClick.invoke(contact, adapterPosition)
+                }
             }
         }
     }
@@ -75,6 +79,11 @@ class ContactAdapter: Adapter<ContactAdapter.ContactViewHolder>() {
     fun removeAtPosition(position: Int) {
         contacts.removeAt(position)
         notifyItemRemoved(position)
+    }
+
+    private var onItemClick: (contact: Contact, position: Int) -> Unit = { _, _ ->}
+    fun setOnItemClickListener(onItemClick: (contact: Contact, position: Int) -> Unit) {
+        this.onItemClick = onItemClick
     }
 
     fun updateContact(position: Int) {

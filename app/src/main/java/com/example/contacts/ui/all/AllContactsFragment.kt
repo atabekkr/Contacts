@@ -59,6 +59,21 @@ class AllContactsFragment: Fragment(R.layout.fragment_contacts_all) {
                 startActivity(intent)
             }
 
+            adapter.setOnItemClickListener { contact, position ->
+                val bundle = Bundle()
+
+                bundle.putInt("id", contact.id)
+                bundle.putString("name", contact.name)
+                bundle.putString("phone", contact.phone)
+                bundle.putString("image", contact.image)
+                bundle.putInt("isFavorite", contact.isFav)
+
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, EditContactFragment::class.java, bundle)
+                    .addToBackStack(EditContactFragment::class.java.simpleName)
+                    .commit()
+            }
+
             adapter.contacts = contactDao.getAllContacts().toMutableList()
 
             fabAddContact.setOnClickListener {
